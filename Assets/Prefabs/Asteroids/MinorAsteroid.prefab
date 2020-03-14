@@ -9,8 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2776920641084987782}
-  - component: {fileID: 1569848249757902546}
   - component: {fileID: 8321687805039154022}
+  - component: {fileID: 988359005362242253}
+  - component: {fileID: 1569848249757902546}
+  - component: {fileID: 1794311655671327367}
+  - component: {fileID: 9191903544937761601}
   m_Layer: 0
   m_Name: MinorAsteroid
   m_TagString: Asteroid
@@ -33,6 +36,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &8321687805039154022
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2776920641084987783}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.135
+--- !u!50 &988359005362242253
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2776920641084987783}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &1569848249757902546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,28 +85,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4de899781fddece4b84e1fe377066343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   asteroidPrefabs:
   - {fileID: 2776920641084987783}
   - {fileID: 8286750539239163248, guid: 2ac1e7902a29e104a97e93586cfce45d, type: 3}
   - {fileID: 3024640403372245377, guid: f48b64c67901b4043b5078559d06f80f, type: 3}
   movementSpeed: 2.5
+  protectedDuration: 0.25
   asteroidType: 2
---- !u!58 &8321687805039154022
-CircleCollider2D:
+--- !u!114 &1794311655671327367
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2776920641084987783}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.135
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18b8a893cc679594cab4dd06cef87885, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &9191903544937761601
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2776920641084987783}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f7870b3b862eb8c44bb2aa255c8a2a81, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2776920642061941720
 GameObject:
   m_ObjectHideFlags: 0

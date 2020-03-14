@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
-	public bool debug = false;
 	private enum AsteroidType {MAJOR, MEDIUM, MINOR}
+	public bool debug = false;
 
 	[SerializeField] private GameObject[] asteroidPrefabs;
 	[SerializeField] private float movementSpeed;
+	[SerializeField] private float protectedDuration;
 	[SerializeField] private AsteroidType asteroidType;
 	private Vector2 movementDirection = Vector3.zero;
+	private bool isSpawnProtected = true;
 
 	private void Start()
 	{
 		SetRandomDirection();
+		StartCoroutine(SpawnProtectionCounter());
 	}
 
 	private void Update()
@@ -22,9 +25,11 @@ public class Asteroid : MonoBehaviour
 		transform.Translate((movementDirection.normalized * movementSpeed) * Time.deltaTime);
 	}
 
-	// Physics Logic
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
+		if (isSpawnProtected)
+			return;
+
 		if (collision.CompareTag("Player"))
 		{
 			DestroyAsteroid();
@@ -42,6 +47,16 @@ public class Asteroid : MonoBehaviour
 			if (debug)
 			{
 				Debug.Log("Collision between laser and asteroid detected");
+			}
+		}
+
+		else if (collision.CompareTag("Asteroid"))
+		{
+			DestroyAsteroid();
+
+			if (debug)
+			{
+				Debug.Log("Collision between asteroid and asteroid detected");
 			}
 		}
 	}
@@ -72,5 +87,11 @@ public class Asteroid : MonoBehaviour
 	public void SetRandomDirection()
 	{
 		movementDirection = new Vector2(Random.Range(-1, 1f), Random.Range(-1, 1f));
+	}
+
+	private IEnumerator SpawnProtectionCounter()
+	{
+		yield return new WaitForSeconds(protectedDuration);
+		isSpawnProtected = false;
 	}
 }

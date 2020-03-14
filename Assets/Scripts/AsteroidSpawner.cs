@@ -8,7 +8,6 @@ public class AsteroidSpawner : MonoBehaviour
 
 	[Tooltip("The time it takes for next asteroid to spawn")]
 	[SerializeField] private float timeToSpawn;
-	[SerializeField] private GameObject[] spawnPoints;
 	[SerializeField] private GameObject[] asteroidPrefabs;
 
 	private void Start()
@@ -18,17 +17,17 @@ public class AsteroidSpawner : MonoBehaviour
 
 	private void SpawnAsteroid()
 	{
-		GameObject selectedSpawnPoint;
+		Vector3 selectedSpawnPoint;
 		GameObject selectedAsteroid;
 
 		selectedAsteroid = asteroidPrefabs[Random.Range(0, asteroidPrefabs.Length)];
-		selectedSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+		selectedSpawnPoint = new Vector2(Random.Range(-6.66f, 6.66f), Random.Range(-5, 5));
 
-		Instantiate(selectedAsteroid, selectedSpawnPoint.transform.position, selectedAsteroid.transform.rotation);
+		Instantiate(selectedAsteroid, selectedSpawnPoint, selectedAsteroid.transform.rotation);
 
 		if (debug)
 		{
-			Debug.Log("Spawned a " + selectedAsteroid.name + " at " + selectedSpawnPoint.transform.position);
+			Debug.Log("Spawned a " + selectedAsteroid.name + " at " + selectedSpawnPoint);
 		}
 
 		StartCoroutine(AsteroidSpawnCounter());
