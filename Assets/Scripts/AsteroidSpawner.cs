@@ -31,8 +31,6 @@ public class AsteroidSpawner : MonoBehaviour
 			Debug.Log("Spawned a " + selectedAsteroid.name + " at " + selectedSpawnPoint.transform.position);
 		}
 
-		//Set random direction for asteroid to move and send to asteroid script
-
 		StartCoroutine(AsteroidSpawnCounter());
 	}
 
