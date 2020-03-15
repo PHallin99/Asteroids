@@ -162,7 +162,6 @@ GameObject:
   - component: {fileID: 314418879}
   - component: {fileID: 314418878}
   - component: {fileID: 314418880}
-  - component: {fileID: 314418882}
   - component: {fileID: 314418881}
   m_Layer: 0
   m_Name: Player
@@ -272,24 +271,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b8a893cc679594cab4dd06cef87885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &314418882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 314418876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f02b1578417ba0640b941478a6f2777c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  laserPrefab: {fileID: 4427959884363970162, guid: e6772aaebe427494eb861a8e7453bf6c,
-    type: 3}
-  laserSpawnPoint: {fileID: 1620399818}
-  rotationSpeed: 0
-  thrustAmount: 0
-  shotCooldown: 0
 --- !u!1 &498292010
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +406,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   timeToSpawn: 5
+  spawnPoints:
+  - {fileID: 825206256}
+  - {fileID: 798704092}
+  - {fileID: 1217445641}
+  - {fileID: 1836276121}
+  - {fileID: 1719766205}
+  - {fileID: 202573099}
+  - {fileID: 1068222549}
   asteroidPrefabs:
   - {fileID: 3024640403372245377, guid: f48b64c67901b4043b5078559d06f80f, type: 3}
   - {fileID: 8286750539239163248, guid: 2ac1e7902a29e104a97e93586cfce45d, type: 3}
