@@ -57,8 +57,8 @@ public class SpaceShip : MonoBehaviour
 			return;
 
 		GameObject _spawnedLaser;
-		_spawnedLaser = Instantiate(laserPrefab, laserSpawnPoint.position, Quaternion.identity);
-		Destroy(_spawnedLaser, 5);
+		_spawnedLaser = Instantiate(laserPrefab, laserSpawnPoint.position, transform.rotation);
+		Destroy(_spawnedLaser, 2);
 		isOnCooldown = true;
 		StartCoroutine(ShootCooldown());
 	}

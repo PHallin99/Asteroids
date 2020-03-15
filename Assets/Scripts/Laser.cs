@@ -8,7 +8,7 @@ public class Laser : MonoBehaviour
 
 	private void Update()
 	{
-		transform.Translate((transform.forward * movementSpeed) * Time.deltaTime);
+		transform.Translate((Vector3.right * movementSpeed) * Time.deltaTime);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
