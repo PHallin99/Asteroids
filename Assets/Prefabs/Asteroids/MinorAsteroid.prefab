@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 988359005362242253}
   - component: {fileID: 1569848249757902546}
   - component: {fileID: 1794311655671327367}
-  - component: {fileID: 9191903544937761601}
+  - component: {fileID: 2675379316738578106}
   m_Layer: 0
   m_Name: MinorAsteroid
   m_TagString: Asteroid
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b8a893cc679594cab4dd06cef87885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &9191903544937761601
+--- !u!95 &2675379316738578106
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -115,7 +115,7 @@ Animator:
   m_GameObject: {fileID: 2776920641084987783}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f7870b3b862eb8c44bb2aa255c8a2a81, type: 2}
+  m_Controller: {fileID: 9100000, guid: 92524e05591a02a46bb23d18d6675cd2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -162,8 +162,10 @@ GameObject:
   - component: {fileID: 314418879}
   - component: {fileID: 314418878}
   - component: {fileID: 314418880}
+  - component: {fileID: 314418884}
   - component: {fileID: 314418881}
   - component: {fileID: 314418882}
+  - component: {fileID: 314418883}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -287,9 +289,41 @@ MonoBehaviour:
   laserPrefab: {fileID: 4427959884363970162, guid: e6772aaebe427494eb861a8e7453bf6c,
     type: 3}
   laserSpawnPoint: {fileID: 1620399818}
-  rotationSpeed: 100
+  rotationSpeed: 150
   thrustAmount: 5
   shotCooldown: 0.25
+  respawnTime: 0.35
+--- !u!114 &314418883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314418876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55999a9826c64d143b17ece15dee5ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &314418884
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314418876}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 160b45dd520a0e8478118c58b5749885, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &498292010
 GameObject:
   m_ObjectHideFlags: 0

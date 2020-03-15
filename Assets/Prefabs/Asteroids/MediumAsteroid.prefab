@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 2253062655629673466}
   - component: {fileID: 1604349396231041155}
   - component: {fileID: 1691393068494012198}
-  - component: {fileID: 676417617714511637}
+  - component: {fileID: 9143456493558322414}
   m_Layer: 0
   m_Name: MediumAsteroid
   m_TagString: Asteroid
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b8a893cc679594cab4dd06cef87885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &676417617714511637
+--- !u!95 &9143456493558322414
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -195,7 +195,7 @@ Animator:
   m_GameObject: {fileID: 8286750539239163248}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f7870b3b862eb8c44bb2aa255c8a2a81, type: 2}
+  m_Controller: {fileID: 9100000, guid: b96c3f58006d3a848ac77ab8e26b087a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

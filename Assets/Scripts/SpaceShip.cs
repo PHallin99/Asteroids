@@ -9,6 +9,7 @@ public class SpaceShip : MonoBehaviour
 	[SerializeField] private float rotationSpeed;
 	[SerializeField] private float thrustAmount;
 	[SerializeField] private float shotCooldown;
+	[SerializeField] private AnimationClip playerRespawnClip;
 
 	private float horizontal;
 	private float vertical;
@@ -18,6 +19,15 @@ public class SpaceShip : MonoBehaviour
 
 	private bool isOnCooldown = false;
 	private bool isSpawnProtected = false;
+
+	private PlayerAnimation playerAnimation;
+	private float respawnTime;
+
+	private void Start()
+	{
+		respawnTime = playerRespawnClip.length;
+		playerAnimation = FindObjectOfType<PlayerAnimation>();
+	}
 
 	private void Update()
 	{
@@ -49,6 +59,7 @@ public class SpaceShip : MonoBehaviour
 		gameObject.transform.position = Vector3.zero;
 		isSpawnProtected = true;
 		// Start respawn animation
+		StartCoroutine(PlayerRespawn());
 	}
 
 	private void Shoot()
@@ -61,6 +72,15 @@ public class SpaceShip : MonoBehaviour
 		Destroy(_spawnedLaser, 2);
 		isOnCooldown = true;
 		StartCoroutine(ShootCooldown());
+	}
+
+	private IEnumerator PlayerRespawn()
+	{
+		isSpawnProtected = true;
+		playerAnimation.StartRespawnAnimation();
+
+		yield return new WaitForSeconds(respawnTime);
+		isSpawnProtected = false;
 	}
 
 	private IEnumerator ShootCooldown()
