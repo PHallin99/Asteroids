@@ -18,17 +18,17 @@ public class AsteroidSpawner : MonoBehaviour
 
 	private void SpawnAsteroid()
 	{
-		GameObject selectedSpawnPoint;
-		GameObject selectedAsteroid;
+		GameObject _selectedSpawnPoint;
+		GameObject _selectedAsteroid;
 
-		selectedAsteroid = asteroidPrefabs[Random.Range(0, asteroidPrefabs.Length)];
-		selectedSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+		_selectedAsteroid = asteroidPrefabs[Random.Range(0, asteroidPrefabs.Length)];
+		_selectedSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
-		Instantiate(selectedAsteroid, selectedSpawnPoint.transform.position, selectedAsteroid.transform.rotation);
+		Instantiate(_selectedAsteroid, _selectedSpawnPoint.transform.position, _selectedAsteroid.transform.rotation);
 
 		if (debug)
 		{
-			Debug.Log("Spawned a " + selectedAsteroid.name + " at " + selectedSpawnPoint.transform.position);
+			Debug.Log("Spawned a " + _selectedAsteroid.name + " at " + _selectedSpawnPoint.transform.position);
 		}
 
 		StartCoroutine(AsteroidSpawnCounter());
