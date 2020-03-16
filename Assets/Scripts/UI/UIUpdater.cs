@@ -53,11 +53,9 @@ public class UIUpdater : MonoBehaviour
 		// If highscore was beat, update it and show text saying user beat highscore
 		scoreText.gameObject.SetActive(false);
 		player.SetActive(false);
+		gameOverScoreText.text = score.ToString();
 		if (scoreManager.CheckScore(score))
-		{
 			highScoreBeatUI.SetActive(true);
-			gameOverScoreText.text = score.ToString();
-		}
 	}
 
 	public void ToggleMouse()
