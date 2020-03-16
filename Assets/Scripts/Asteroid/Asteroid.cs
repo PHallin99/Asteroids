@@ -35,6 +35,9 @@ public class Asteroid : MonoBehaviour
 		if (isSpawnProtected)
 			return;
 
+		if (collision.CompareTag("Laser"))
+			GiveScore();
+
 		DestroyAsteroid();
 	}
 
@@ -47,21 +50,37 @@ public class Asteroid : MonoBehaviour
 			case AsteroidType.MAJOR:
 				asteroidSpawner.AddAsteroidToList(Instantiate(asteroidPrefabs[1], transform.position, transform.rotation));
 				asteroidSpawner.AddAsteroidToList(Instantiate(asteroidPrefabs[1], transform.position, transform.rotation));
-				uIUpdater.AddScore(20);
 				Destroy(gameObject);
 				break;
 			case AsteroidType.MEDIUM:
 				asteroidSpawner.AddAsteroidToList(Instantiate(asteroidPrefabs[0], transform.position, transform.rotation));
 				asteroidSpawner.AddAsteroidToList(Instantiate(asteroidPrefabs[0], transform.position, transform.rotation));
-				uIUpdater.AddScore(50);
 				Destroy(gameObject);
 				break;
 			case AsteroidType.MINOR:
-				uIUpdater.AddScore(100);
 				Destroy(gameObject);
 				break;
 			default:
 				Debug.LogError("Default case in DestroyAsteroid should not be able to happen");
+				break;
+		}
+	}
+
+	private void GiveScore()
+	{
+		switch (asteroidType)
+		{
+			case AsteroidType.MAJOR:
+				uIUpdater.AddScore(20);
+				break;
+			case AsteroidType.MEDIUM:
+				uIUpdater.AddScore(50);
+				break;
+			case AsteroidType.MINOR:
+				uIUpdater.AddScore(100);
+				break;
+			default:
+				Debug.LogError("Default state when awarding score should not be able to happen");
 				break;
 		}
 	}
