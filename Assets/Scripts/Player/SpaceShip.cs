@@ -23,10 +23,13 @@ public class SpaceShip : MonoBehaviour
 	private PlayerAnimation playerAnimation;
 	private float respawnTime;
 
+	private UIUpdater uIScoreUpdater;
+
 	private void Start()
 	{
 		respawnTime = playerRespawnClip.length;
 		playerAnimation = FindObjectOfType<PlayerAnimation>();
+		uIScoreUpdater = FindObjectOfType<UIUpdater>();
 	}
 
 	private void Update()
@@ -48,7 +51,7 @@ public class SpaceShip : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (isSpawnProtected)
+		if (isSpawnProtected || collision.CompareTag("Laser"))
 			return;
 
 		PlayerDied();
@@ -57,9 +60,13 @@ public class SpaceShip : MonoBehaviour
 	private void PlayerDied()
 	{
 		gameObject.transform.position = Vector3.zero;
-		isSpawnProtected = true;
+
+		uIScoreUpdater.RemoveLife();
+
 		// Start respawn animation
-		StartCoroutine(PlayerRespawn());
+		isSpawnProtected = true;
+		if (gameObject.activeSelf)
+			StartCoroutine(PlayerRespawn());
 	}
 
 	private void Shoot()

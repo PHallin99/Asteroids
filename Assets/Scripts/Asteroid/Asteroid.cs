@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class Asteroid : MonoBehaviour
 {
-	private enum AsteroidType {MAJOR, MEDIUM, MINOR}
-	public bool debug = false;
+	public enum AsteroidType {MAJOR, MEDIUM, MINOR}
 
 	[SerializeField] private GameObject[] asteroidPrefabs;
 	[SerializeField] private float movementSpeed;
 	[SerializeField] private float protectedDuration;
 	[SerializeField] private AsteroidType asteroidType;
+
 	private Vector2 movementDirection = Vector3.zero;
 	private bool isSpawnProtected = true;
+
+	private UIUpdater uIUpdater;
+	private AsteroidSpawner asteroidSpawner;
 
 	private void Start()
 	{
 		SetRandomDirection();
 		StartCoroutine(SpawnProtectionCounter());
+		uIUpdater = FindObjectOfType<UIUpdater>();
+		asteroidSpawner = FindObjectOfType<AsteroidSpawner>();
 	}
 
 	private void Update()
@@ -30,52 +35,29 @@ public class Asteroid : MonoBehaviour
 		if (isSpawnProtected)
 			return;
 
-		if (collision.CompareTag("Player"))
-		{
-			DestroyAsteroid();
-
-			if (debug)
-			{
-				Debug.Log("Collision between player and asteroid detected");
-			}
-		}
-
-		else if (collision.CompareTag("Laser"))
-		{
-			DestroyAsteroid();
-
-			if (debug)
-			{
-				Debug.Log("Collision between laser and asteroid detected");
-			}
-		}
-
-		else if (collision.CompareTag("Asteroid"))
-		{
-			DestroyAsteroid();
-
-			if (debug)
-			{
-				Debug.Log("Collision between asteroid and asteroid detected");
-			}
-		}
+		DestroyAsteroid();
 	}
 
 	private void DestroyAsteroid()
 	{
+		asteroidSpawner.RemoveAsteroidFromList(gameObject);
+
 		switch (asteroidType)
 		{
 			case AsteroidType.MAJOR:
-				Instantiate(asteroidPrefabs[1], transform.position, transform.rotation);
-				Instantiate(asteroidPrefabs[1], transform.position, transform.rotation);
+				asteroidSpawner.AddAsteroidToList(Instantiate(asteroidPrefabs[1], transform.position, transform.rotation));
+				asteroidSpawner.AddAsteroidToList(Instantiate(asteroidPrefabs[1], transform.position, transform.rotation));
+				uIUpdater.AddScore(20);
 				Destroy(gameObject);
 				break;
 			case AsteroidType.MEDIUM:
-				Instantiate(asteroidPrefabs[0], transform.position, transform.rotation);
-				Instantiate(asteroidPrefabs[0], transform.position, transform.rotation);
+				asteroidSpawner.AddAsteroidToList(Instantiate(asteroidPrefabs[0], transform.position, transform.rotation));
+				asteroidSpawner.AddAsteroidToList(Instantiate(asteroidPrefabs[0], transform.position, transform.rotation));
+				uIUpdater.AddScore(50);
 				Destroy(gameObject);
 				break;
 			case AsteroidType.MINOR:
+				uIUpdater.AddScore(100);
 				Destroy(gameObject);
 				break;
 			default:

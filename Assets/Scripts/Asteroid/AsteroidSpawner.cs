@@ -10,6 +10,8 @@ public class AsteroidSpawner : MonoBehaviour
 	[SerializeField] private float timeToSpawn;
 	[SerializeField] private GameObject[] asteroidPrefabs;
 
+	private List<GameObject> spawnedAsteroids = new List<GameObject>();
+
 	private void Start()
 	{
 		SpawnAsteroid();
@@ -23,7 +25,7 @@ public class AsteroidSpawner : MonoBehaviour
 		selectedAsteroid = asteroidPrefabs[Random.Range(0, asteroidPrefabs.Length)];
 		selectedSpawnPoint = new Vector2(Random.Range(-6.66f, 6.66f), Random.Range(-5, 5));
 
-		Instantiate(selectedAsteroid, selectedSpawnPoint, selectedAsteroid.transform.rotation);
+		spawnedAsteroids.Add(Instantiate(selectedAsteroid, selectedSpawnPoint, selectedAsteroid.transform.rotation));
 
 		if (debug)
 		{
@@ -31,6 +33,27 @@ public class AsteroidSpawner : MonoBehaviour
 		}
 
 		StartCoroutine(AsteroidSpawnCounter());
+	}
+
+	public void OnGameOver()
+	{
+		foreach (GameObject _gameObject in spawnedAsteroids)
+		{
+			if (_gameObject != null)
+				_gameObject.SetActive(false);
+		}
+
+		gameObject.SetActive(false);
+	}
+
+	public void AddAsteroidToList(GameObject asteroid)
+	{
+		spawnedAsteroids.Add(asteroid);
+	}
+
+	public void RemoveAsteroidFromList(GameObject asteroid)
+	{
+		spawnedAsteroids.Remove(asteroid);
 	}
 
 	private IEnumerator AsteroidSpawnCounter()
