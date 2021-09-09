@@ -1,23 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerAnimation : MonoBehaviour
+namespace Player
 {
-	private Animator animator;
+    public class PlayerAnimation : MonoBehaviour
+    {
+        private static readonly int Respawning = Animator.StringToHash("Respawning");
+        private Animator animator;
 
-	private void Start()
-	{
-		animator = GetComponent<Animator>();
-	}
+        private void Start()
+        {
+            animator = GetComponent<Animator>();
+        }
 
-	public void StartRespawnAnimation()
-	{
-		animator.SetBool("Respawning", true);
-	}
+        public void StartRespawnAnimation()
+        {
+            animator.SetBool(Respawning, true);
+        }
 
-	public void StopRespawnAnimation()
-	{
-		animator.SetBool("Respawning", false);
-	}
+        public void StopRespawnAnimation()
+        {
+            animator.SetBool(Respawning, false);
+        }
+    }
 }

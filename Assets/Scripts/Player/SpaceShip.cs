@@ -1,98 +1,97 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
-public class SpaceShip : MonoBehaviour
+namespace Player
 {
-	[SerializeField] private GameObject laserPrefab;
-	[SerializeField] private Transform laserSpawnPoint;
-	[SerializeField] private float rotationSpeed;
-	[SerializeField] private float thrustAmount;
-	[SerializeField] private float shotCooldown;
-	[SerializeField] private AnimationClip playerRespawnClip;
+    public class SpaceShip : MonoBehaviour
+    {
+        [SerializeField] private GameObject laserPrefab;
+        [SerializeField] private Transform laserSpawnPoint;
+        [SerializeField] private float rotationSpeed;
+        [SerializeField] private float thrustAmount;
+        [SerializeField] private float shotCooldown;
+        [SerializeField] private AnimationClip playerRespawnClip;
 
-	private float horizontal;
-	private float vertical;
+        private float angularVelocity;
 
-	private float angularVelocity;
-	private float thrustForce;
+        private float horizontal;
 
-	private bool isOnCooldown = false;
-	private bool isSpawnProtected = false;
+        private bool isOnCooldown;
+        private bool isSpawnProtected;
 
-	private PlayerAnimation playerAnimation;
-	private float respawnTime;
+        private PlayerAnimation playerAnimation;
+        private float respawnTime;
+        private float thrustForce;
 
-	private UIUpdater uIScoreUpdater;
+        private UIUpdater uIScoreUpdater;
+        private float vertical;
 
-	private void Start()
-	{
-		respawnTime = playerRespawnClip.length;
-		playerAnimation = FindObjectOfType<PlayerAnimation>();
-		uIScoreUpdater = FindObjectOfType<UIUpdater>();
-	}
+        private void Start()
+        {
+            respawnTime = playerRespawnClip.length;
+            playerAnimation = FindObjectOfType<PlayerAnimation>();
+            uIScoreUpdater = FindObjectOfType<UIUpdater>();
+        }
 
-	private void Update()
-	{
-		horizontal = -Input.GetAxis("Horizontal");
-		vertical = Input.GetAxis("Vertical");
+        private void Update()
+        {
+            horizontal = -Input.GetAxis("Horizontal");
+            vertical = Input.GetAxis("Vertical");
 
-		angularVelocity = horizontal * rotationSpeed;
-		thrustForce = vertical * thrustAmount;
+            angularVelocity = horizontal * rotationSpeed;
+            thrustForce = vertical * thrustAmount;
 
-		transform.Rotate((Vector3.forward * angularVelocity) * Time.deltaTime);
-		transform.Translate((Vector3.right * thrustForce) * Time.deltaTime);
+            transform.Rotate(Vector3.forward * angularVelocity * Time.deltaTime);
+            transform.Translate(Vector3.right * thrustForce * Time.deltaTime);
 
-		if (Input.GetKey(KeyCode.Space))
-		{
-			Shoot();
-		}
-	}
+            if (Input.GetKey(KeyCode.Space)) Shoot();
+        }
 
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		if (isSpawnProtected || collision.CompareTag("Laser"))
-			return;
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (isSpawnProtected || collision.CompareTag("Laser"))
+                return;
 
-		PlayerDied();
-	}
+            PlayerDied();
+        }
 
-	private void PlayerDied()
-	{
-		gameObject.transform.position = Vector3.zero;
+        private void PlayerDied()
+        {
+            gameObject.transform.position = Vector3.zero;
 
-		uIScoreUpdater.RemoveLife();
+            uIScoreUpdater.RemoveLife();
 
-		// Start respawn animation
-		isSpawnProtected = true;
-		if (gameObject.activeSelf)
-			StartCoroutine(PlayerRespawn());
-	}
+            // Start respawn animation
+            isSpawnProtected = true;
+            if (gameObject.activeSelf)
+                StartCoroutine(PlayerRespawn());
+        }
 
-	private void Shoot()
-	{
-		if (isOnCooldown)
-			return;
+        private void Shoot()
+        {
+            if (isOnCooldown)
+                return;
 
-		GameObject _spawnedLaser;
-		_spawnedLaser = Instantiate(laserPrefab, laserSpawnPoint.position, transform.rotation);
-		Destroy(_spawnedLaser, 2);
-		isOnCooldown = true;
-		StartCoroutine(ShootCooldown());
-	}
+            var spawnedLaser = Instantiate(laserPrefab, laserSpawnPoint.position, transform.rotation);
+            Destroy(spawnedLaser, 2);
+            isOnCooldown = true;
+            StartCoroutine(ShootCooldown());
+        }
 
-	private IEnumerator PlayerRespawn()
-	{
-		isSpawnProtected = true;
-		playerAnimation.StartRespawnAnimation();
+        private IEnumerator PlayerRespawn()
+        {
+            isSpawnProtected = true;
+            playerAnimation.StartRespawnAnimation();
 
-		yield return new WaitForSeconds(respawnTime);
-		isSpawnProtected = false;
-	}
+            yield return new WaitForSeconds(respawnTime);
+            isSpawnProtected = false;
+        }
 
-	private IEnumerator ShootCooldown()
-	{
-		yield return new WaitForSeconds(shotCooldown);
-		isOnCooldown = false;
-	}
+        private IEnumerator ShootCooldown()
+        {
+            yield return new WaitForSeconds(shotCooldown);
+            isOnCooldown = false;
+        }
+    }
 }

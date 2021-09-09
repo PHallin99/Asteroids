@@ -1,23 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Laser : MonoBehaviour
+namespace Player
 {
-	[SerializeField] private float movementSpeed;
+    public class Laser : MonoBehaviour
+    {
+        [SerializeField] private float movementSpeed;
 
-	private void Update()
-	{
-		transform.Translate((Vector3.right * movementSpeed) * Time.deltaTime);
-	}
+        private void Update()
+        {
+            transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+        }
 
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		DestroyLaser();
-	}
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            DestroyLaser();
+        }
 
-	private void DestroyLaser()
-	{
-		Destroy(gameObject);
-	}
+        private void DestroyLaser()
+        {
+            Destroy(gameObject);
+        }
+    }
 }
