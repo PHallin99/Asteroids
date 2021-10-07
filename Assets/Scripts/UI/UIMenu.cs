@@ -23,9 +23,9 @@ namespace UI
         }
 
 
+        // Remove menu UI and enable player, asteroid spawner and game UI and call ToggleMouse
         public void StartGame()
         {
-            // Remove menu UI and enable player, asteroid spawner and game UI and call ToggleMouse
             gameGameObjects.SetActive(true);
             gameUI.SetActive(true);
             menuUI.SetActive(false);

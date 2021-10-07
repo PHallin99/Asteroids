@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Enums;
 using UI;
 using UnityEngine;
 
@@ -47,25 +48,25 @@ namespace Asteroid
 
             switch (asteroidType)
             {
-                case AsteroidType.MAJOR:
+                case AsteroidType.Major:
                     asteroidSpawner.AddAsteroidToList(Instantiate(asteroidPrefabs[1], transform.position,
                         transform.rotation));
                     asteroidSpawner.AddAsteroidToList(Instantiate(asteroidPrefabs[1], transform.position,
                         transform.rotation));
                     Destroy(gameObject);
                     break;
-                case AsteroidType.MEDIUM:
+                case AsteroidType.Medium:
                     asteroidSpawner.AddAsteroidToList(Instantiate(asteroidPrefabs[0], transform.position,
                         transform.rotation));
                     asteroidSpawner.AddAsteroidToList(Instantiate(asteroidPrefabs[0], transform.position,
                         transform.rotation));
                     Destroy(gameObject);
                     break;
-                case AsteroidType.MINOR:
+                case AsteroidType.Minor:
                     Destroy(gameObject);
                     break;
                 default:
-                    Debug.LogError("Default case in DestroyAsteroid should not be able to happen");
+                    Debug.LogError("Default case in DestroyAsteroid should not be able to happen", this);
                     break;
             }
         }
@@ -74,17 +75,17 @@ namespace Asteroid
         {
             switch (asteroidType)
             {
-                case AsteroidType.MAJOR:
+                case AsteroidType.Major:
                     uIUpdater.AddScore(20);
                     break;
-                case AsteroidType.MEDIUM:
+                case AsteroidType.Medium:
                     uIUpdater.AddScore(50);
                     break;
-                case AsteroidType.MINOR:
+                case AsteroidType.Minor:
                     uIUpdater.AddScore(100);
                     break;
                 default:
-                    Debug.LogError("Default state when awarding score should not be able to happen");
+                    Debug.LogError("Default state when awarding score should not be able to happen", this);
                     break;
             }
         }
@@ -98,13 +99,6 @@ namespace Asteroid
         {
             yield return new WaitForSeconds(protectedDuration);
             isSpawnProtected = false;
-        }
-
-        private enum AsteroidType
-        {
-            MAJOR,
-            MEDIUM,
-            MINOR
         }
     }
 }

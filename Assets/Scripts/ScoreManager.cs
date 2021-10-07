@@ -20,27 +20,26 @@ public class ScoreManager : MonoBehaviour
         LocalHighScore = PlayerPrefs.GetInt(highScoreKey, 0);
     }
 
+    // Checks last game score to int
     private void CheckLastGameScore()
     {
-        // Checks last game score to int
         LastGameScore = PlayerPrefs.GetInt(lastGameKey, 0);
     }
 
+    // Checks if the score is higher than the local highscore - Calls UpdateLocalHighScore if score was higher than localHighScore
+    // Also updates last game score value that is stored
     public bool CheckScore(int score)
     {
-        // Checks if the score is higher than the local highscore - Calls UpdateLocalHighScore if score was higher than localHighScore
-        // Also updates last game score value that is stored
         UpdateLastGameScore(score);
 
         if (score <= LocalHighScore) return false;
         UpdateLocalHighScore(score);
         return true;
-
     }
 
+    // Updates the locally saved highscore to the score
     private void UpdateLocalHighScore(int score)
     {
-        // Updates the locally saved highscore to the score
         PlayerPrefs.SetInt(highScoreKey, score);
     }
 

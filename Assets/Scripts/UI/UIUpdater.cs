@@ -47,9 +47,9 @@ namespace UI
             scoreText.text = score.ToString();
         }
 
+        // If highscore was beat, update it and show text saying user beat highscore
         private void GameOver()
         {
-            // If highscore was beat, update it and show text saying user beat highscore
             scoreText.gameObject.SetActive(false);
             player.SetActive(false);
             gameOverScoreText.text = score.ToString();
