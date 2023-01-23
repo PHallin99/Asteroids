@@ -1,4 +1,5 @@
-﻿using Asteroid;
+﻿using System;
+using Asteroid;
 using TMPro;
 using UnityEngine;
 
@@ -9,18 +10,13 @@ namespace UI
         [SerializeField] private GameObject player;
         [SerializeField] private GameObject[] lifeUIObjects;
         [SerializeField] private TMP_Text scoreText;
-        [SerializeField] private ScoreManager scoreManager;
-        [SerializeField] private AsteroidSpawner asteroidSpawner;
-
         [SerializeField] private GameObject highScoreBeatUI;
         [SerializeField] private TMP_Text gameOverScoreText;
 
+        private UIMenu uIMenu;
         private CursorLockMode cursorLockMode;
         private int score;
-
         private int selectedUIObject;
-
-        private UIMenu uIMenu;
 
         private void Start()
         {
@@ -34,26 +30,23 @@ namespace UI
             selectedUIObject++;
 
             if (selectedUIObject <= 2) return;
-            asteroidSpawner.OnGameOver();
             uIMenu.GameOverUI();
-            ToggleMouse();
-            GameOver();
+            OnGameOver();
         }
 
         public void AddScore(int scoreToAdd)
         {
-            score = score + scoreToAdd;
-
+            score += scoreToAdd;
             scoreText.text = score.ToString();
         }
 
-        // If highscore was beat, update it and show text saying user beat highscore
-        private void GameOver()
+        private void OnGameOver()
         {
+            ToggleMouse();
             scoreText.gameObject.SetActive(false);
             player.SetActive(false);
             gameOverScoreText.text = score.ToString();
-            if (scoreManager.CheckScore(score))
+            if (ScoreManager.Instance.CompareToHighScore(score))
                 highScoreBeatUI.SetActive(true);
         }
 
@@ -69,6 +62,10 @@ namespace UI
                     cursorLockMode = CursorLockMode.None;
                     Cursor.visible = true;
                     break;
+                case CursorLockMode.Confined:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

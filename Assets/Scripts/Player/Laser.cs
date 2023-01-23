@@ -1,23 +1,22 @@
-﻿using UnityEngine;
+﻿using EditorTools;
+using GlobalConstants;
+using UI;
+using UnityEngine;
 
 namespace Player
 {
     public class Laser : MonoBehaviour
     {
-        [SerializeField] private float movementSpeed;
+        private float moveSpeed;
 
         private void Update()
         {
-            transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
+            transform.Translate(Vector3.right * (ConstantsHandler.LaserMovementSpeed * Time.deltaTime));
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            DestroyLaser();
-        }
-
-        private void DestroyLaser()
-        {
+            FindObjectOfType<UIUpdater>().AddScore(-5);
             Destroy(gameObject);
         }
     }

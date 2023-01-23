@@ -4,13 +4,8 @@ namespace Player
 {
     public class PlayerAnimation : MonoBehaviour
     {
+        [SerializeField] private Animator animator;
         private static readonly int Respawning = Animator.StringToHash("Respawning");
-        private Animator animator;
-
-        private void Start()
-        {
-            animator = GetComponent<Animator>();
-        }
 
         public void StartRespawnAnimation()
         {

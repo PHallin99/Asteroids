@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using EditorTools;
+using GlobalConstants;
 using UI;
 using UnityEngine;
 
@@ -6,26 +8,23 @@ namespace Player
 {
     public class SpaceShip : MonoBehaviour
     {
+        [SerializeField] private AnimationClip playerRespawnClip;
         [SerializeField] private GameObject laserPrefab;
         [SerializeField] private Transform laserSpawnPoint;
         [SerializeField] private float rotationSpeed;
         [SerializeField] private float thrustAmount;
-        [SerializeField] private float shotCooldown;
-        [SerializeField] private AnimationClip playerRespawnClip;
 
-        private float angularVelocity;
-
-        private float horizontal;
+        private PlayerAnimation playerAnimation;
+        private UIUpdater uIScoreUpdater;
 
         private bool isOnCooldown;
         private bool isSpawnProtected;
 
-        private PlayerAnimation playerAnimation;
+        private float angularVelocity;
+        private float horizontalInput;
         private float respawnTime;
         private float thrustForce;
-
-        private UIUpdater uIScoreUpdater;
-        private float vertical;
+        private float verticalInput;
 
         private void Start()
         {
@@ -36,14 +35,14 @@ namespace Player
 
         private void Update()
         {
-            horizontal = -Input.GetAxis("Horizontal");
-            vertical = Input.GetAxis("Vertical");
+            horizontalInput = -Input.GetAxis("Horizontal");
+            verticalInput = Input.GetAxis("Vertical");
 
-            angularVelocity = horizontal * rotationSpeed;
-            thrustForce = vertical * thrustAmount;
+            angularVelocity = horizontalInput * ConstantsHandler.RotationSpeed;
+            thrustForce = verticalInput * ConstantsHandler.ThrustAmount;
 
-            transform.Rotate(Vector3.forward * angularVelocity * Time.deltaTime);
-            transform.Translate(Vector3.right * thrustForce * Time.deltaTime);
+            transform.Rotate(Vector3.forward * (angularVelocity * Time.deltaTime));
+            transform.Translate(Vector3.right * (thrustForce * Time.deltaTime));
 
             if (Input.GetKey(KeyCode.Space)) Shoot();
         }
@@ -73,8 +72,7 @@ namespace Player
             if (isOnCooldown)
                 return;
 
-            var spawnedLaser = Instantiate(laserPrefab, laserSpawnPoint.position, transform.rotation);
-            Destroy(spawnedLaser, 2);
+            Destroy(Instantiate(laserPrefab, laserSpawnPoint.position, transform.rotation), 2);
             isOnCooldown = true;
             StartCoroutine(ShootCooldown());
         }
@@ -90,7 +88,7 @@ namespace Player
 
         private IEnumerator ShootCooldown()
         {
-            yield return new WaitForSeconds(shotCooldown);
+            yield return new WaitForSeconds(ConstantsHandler.ShootCooldown);
             isOnCooldown = false;
         }
     }

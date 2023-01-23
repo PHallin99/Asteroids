@@ -1,51 +1,49 @@
-﻿using UnityEngine;
+﻿using GlobalConstants;
+using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    [SerializeField] private string highScoreKey;
-    [SerializeField] private string lastGameKey;
-
+    public static ScoreManager Instance;
     public int LastGameScore { get; private set; }
-
     public int LocalHighScore { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
-        CheckLocalHighScore();
-        CheckLastGameScore();
+        GetLocalHighScore();
+        GetLastGameScore();
     }
 
-    private void CheckLocalHighScore()
+    private void GetLocalHighScore()
     {
-        LocalHighScore = PlayerPrefs.GetInt(highScoreKey, 0);
+        LocalHighScore = PlayerPrefs.GetInt(ConstantsHandler.HighScoreKey, 0);
     }
 
-    // Checks last game score to int
-    private void CheckLastGameScore()
+    private void GetLastGameScore()
     {
-        LastGameScore = PlayerPrefs.GetInt(lastGameKey, 0);
+        LastGameScore = PlayerPrefs.GetInt(ConstantsHandler.LastGameKey, 0);
     }
 
-    // Checks if the score is higher than the local highscore - Calls UpdateLocalHighScore if score was higher than localHighScore
-    // Also updates last game score value that is stored
-    public bool CheckScore(int score)
+    public bool CompareToHighScore(int score)
     {
         UpdateLastGameScore(score);
-
         if (score <= LocalHighScore) return false;
         UpdateLocalHighScore(score);
         return true;
     }
 
-    // Updates the locally saved highscore to the score
-    private void UpdateLocalHighScore(int score)
+    private static void UpdateLocalHighScore(int score)
     {
-        PlayerPrefs.SetInt(highScoreKey, score);
+        PlayerPrefs.SetInt(ConstantsHandler.HighScoreKey, score);
     }
 
-    private void UpdateLastGameScore(int score)
+    private static void UpdateLastGameScore(int score)
     {
-        PlayerPrefs.SetInt(lastGameKey, score);
+        PlayerPrefs.SetInt(ConstantsHandler.LastGameKey, score);
     }
 
     public void ResetScores()
